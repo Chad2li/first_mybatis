@@ -1,0 +1,23 @@
+create table TEST_USER
+(
+  id         NUMBER not NULL
+  , name       VARCHAR2(255)
+  , age        NUMBER
+  , address    VARCHAR2(255)
+  , createtime DATE default SYSDATE not NULL
+  , CONSTRAINTS PK_TEST_USER PRIMARY KEY (ID)
+) ;
+
+COMMENT ON TABLE TEST_USER IS '测试用户表' ;
+COMMENT ON COLUMN TEST_USER.name IS '用户名称' ;
+COMMENT ON COLUMN TEST_USER.age IS '用户年龄' ;
+COMMENT ON COLUMN TEST_USER.address IS '用户地址' ;
+COMMENT ON COLUMN TEST_USER.createtime IS '用户创建时间' ;
+
+
+CREATE SEQUENCE seq_test_user_id
+MINVALUE 1
+MAXVALUE 999999999
+START WITH 1
+INCREMENT BY 1
+NOCACHE ;

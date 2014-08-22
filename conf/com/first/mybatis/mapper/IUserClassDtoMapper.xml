@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.first.mybatis.mapper.IUserClassDtoMapper">
+    <!-- 多结果集存储过程，生成 UserClassDto 结果 -->
+    <resultMap id="userAndClassDtoMap" type="UserClassDto">
+        <association property="user" javaType="UserPojo" resultSet="users">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="age" column="age"/>
+            <result property="address" column="address"/>
+            <result property="createtime" column="createtime"/>
+            <result property="userclass" column="userclass"/>
+        </association>
+        <association property="clazz" javaType="ClassPojo" resultSet="clazzs">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="level" column="level"/>
+            <result property="createtime" column="createtime"/>
+            <result property="parent" column="parent"/>
+        </association>
+    </resultMap>
+
+    <!-- 调用存储过程返回相应用户ID的用户及班级信息 -->
+    <select id="selectUserAndClass" resultSets="users,clazzs" resultMap="userAndClassDtoMap">
+        <![CDATA[{call getUserAndClass(#{0, javaType=INTEGER, mode=IN}, #{1, javaType=INTEGER, mode=IN})}]]>
+    </select>
+
+    <!-- 多结果集存储过程，生成 UserClassDto 结果 2 -->
+    <resultMap id="userAndClassDtoMap2" type="UserClassDto2">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="address" column="address"/>
+        <result property="createtime" column="createtime"/>
+        <result property="userclass" column="userclass"/>
+        <association property="clazz" javaType="ClassPojo" resultSet="clazzs">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="level" column="level"/>
+            <result property="createtime" column="createtime"/>
+            <result property="parent" column="parent"/>
+        </association>
+    </resultMap>
+
+    <!-- 调用存储过程返回相应用户ID的用户及班级信息 2 -->
+    <select id="selectUserAndClass2" resultSets="users, clazzs" resultMap="userAndClassDtoMap2">
+        <![CDATA[{call getUserAndClass(#{0, javaType=INTEGER, mode=IN}, #{1, javaType=INTEGER, mode=IN})}]]>
+    </select>
+</mapper>
